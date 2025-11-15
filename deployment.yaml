@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: nodejs-monitoring-demoapp
-        image: <YOUR_DOCKERHUB_USERNAME>/nodejs-monitoring-demoapp:latest
+        image: sthuthi22/nodejs-monitoring-demoapp:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 3000
