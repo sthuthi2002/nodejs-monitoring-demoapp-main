@@ -1,18 +1,17 @@
 FROM node:16-alpine
-LABEL Name="Node.js Demo App" Version=4.8.5
-LABEL org.opencontainers.image.source="https://github.com/benc-uk/nodejs-demoapp"
+LABEL Name="Node.js Demo App" Version=4.9.7
 
 ENV NODE_ENV=production
 WORKDIR /app
 
-# Install dependencies
+# Copy package files first for layer caching
 COPY package*.json ./
 RUN npm install --production --silent
 
-# Copy app code
+# Copy the rest of the project
 COPY . .
 
-# Expose port for Kubernetes
+# Expose port
 EXPOSE 3000
 
 ENTRYPOINT ["npm", "start"]
