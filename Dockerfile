@@ -1,17 +1,22 @@
-FROM node:16-alpine
-LABEL Name="Node.js Demo App" Version=4.9.7
+# Use Node.js LTS Alpine
+FROM node:18-alpine
 
-ENV NODE_ENV=production
+RUN apk add --no-cache python3 g++ make bash git libc6-compat
+
 WORKDIR /app
 
-# Copy package files first for layer caching
-COPY package*.json ./
-RUN npm install --production --silent
+# Copy package files
+COPY package*.json ./src/
 
-# Copy the rest of the project
-COPY . .
+# Install dependencies in src/
+WORKDIR /app/src
+RUN npm install --production
 
-# Expose port
+# Copy all source code
+COPY src/ ./ 
+
+# Expose the app port
 EXPOSE 3000
 
-ENTRYPOINT ["npm", "start"]
+# Start the app
+CMD ["node", "server.mjs"]
