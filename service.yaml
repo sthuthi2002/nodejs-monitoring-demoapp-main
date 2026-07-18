@@ -3,14 +3,13 @@ kind: Service
 metadata:
   name: nodejs-monitoring-demoapp-service
   labels:
-    app: app-deployment
+    app: nodejs-monitoring-demoapp
 spec:
   type: NodePort
   selector:
-    app: app-deployment
+    app: nodejs-monitoring-demoapp
   ports:
     - protocol: TCP
       port: 3000
       targetPort: 3000
       nodePort: 32000
-
